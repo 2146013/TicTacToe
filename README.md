@@ -18,6 +18,14 @@ El tablero se corre en localhost:8080
 
 
 ## Pruebas de funcionamiento 
+![imagen1](https://user-images.githubusercontent.com/60073527/124157657-9ebe8880-da5e-11eb-9d73-c7952a2457a4.jpeg)
+<img width="930" alt="imagen2" src="https://user-images.githubusercontent.com/60073527/124158129-2906ec80-da5f-11eb-8c10-44e873b9a71a.PNG">
+<img width="926" alt="imagen3" src="https://user-images.githubusercontent.com/60073527/124158149-2dcba080-da5f-11eb-8281-dd30b0bb2ad8.PNG">
+<img width="915" alt="imagen4" src="https://user-images.githubusercontent.com/60073527/124158165-315f2780-da5f-11eb-8124-ad1c70f1d28f.PNG">
+En esta imagen se evidencia el funcionamiento del tablero y probado desde la aplicacion de heroku 
+<img width="622" alt="imagen5" src="https://user-images.githubusercontent.com/60073527/124158554-ab8fac00-da5f-11eb-8eb9-54873e4a99a4.PNG">
+
+
 
 
 ## Tecnologias
