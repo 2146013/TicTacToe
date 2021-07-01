@@ -7,38 +7,49 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Logger;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
+import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import org.springframework.stereotype.Component;
 @Component
-@ServerEndpoint("/timer")
-public class TimerEndpoint {
-    private static final Logger logger = Logger.getLogger("ETFEndpoint");
+@ServerEndpoint("/wbService")
+public class BBEndpoint {
+    private static final Logger logger =
+            Logger.getLogger(BBEndpoint.class.getName());
     /* Queue for all open WebSocket sessions */
     static Queue<Session> queue = new ConcurrentLinkedQueue<>();
+    Session ownSession = null;
     /* Call this method to send a message to all clients */
-    public static void send(String msg) {
+    public void send(String msg) {
         try {
             /* Send updates to all open WebSocket sessions */
             for (Session session : queue) {
-                session.getBasicRemote().sendText(msg);
+                if (!session.equals(this.ownSession)) {
+                    session.getBasicRemote().sendText(msg);
+                }
                 logger.log(Level.INFO, "Sent: {0}", msg);
             }
         } catch (IOException e) {
             logger.log(Level.INFO, e.toString());
         }
     }
+    @OnMessage
+    public void processPoint(String message, Session session) {
+        System.out.println("Point received:" + message + ". From session: " +
+                session);
+        this.send(message);
+    }
     @OnOpen
     public void openConnection(Session session) {
         /* Register this connection in the queue */
         queue.add(session);
+        ownSession = session;
         logger.log(Level.INFO, "Connection opened.");
         try {
             session.getBasicRemote().sendText("Connection established.");
         } catch (IOException ex) {
-            Logger.getLogger(TimerEndpoint.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
     @OnClose
